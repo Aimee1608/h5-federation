@@ -1,0 +1,120 @@
+.assemble-list-container {
+  padding: 0px 10px;
+  margin: 5px 0;
+  .assemble-title {
+    margin-bottom: 10px;
+  }
+  // .draggable {
+  //   cursor: move;
+  // }
+
+  // .dragged {
+  //   opacity: 0.7;
+  // }
+
+  .placeholder {
+    opacity: 0.5;
+  }
+  .assemble-list-item {
+    border: solid 1px #d9d9d9;
+    border-radius: 3px;
+    margin: 10px 0;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 8px;
+    position: relative;
+    .assemble-list-item-title {
+      padding-bottom: 6px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #eee;
+    }
+
+    &:hover {
+      border-color: #4a82f7;
+
+      & > .remove-assemble-item {
+        display: block;
+        &:hover {
+          color: #4a82f7;
+        }
+      }
+    }
+
+    .remove-assemble-item {
+      position: absolute;
+      top: 4.5px;
+      right: 4px;
+      border-radius: 100%;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      display: none;
+      vertical-align: 0;
+      color: #333;
+    }
+  }
+  .move-operation-content {
+    display: none;
+    right: 20px;
+    transform: translateY(0);
+    top: 4px;
+    width: 50px;
+    height: 20px;
+    background: transparent;
+    .move-arrow {
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 16px;
+      background: transparent;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 16px;
+    }
+    .move-arrow-up {
+      left: 0;
+    }
+    .move-arrow-down {
+      left: 25px;
+    }
+  }
+  .assemble-list-item:hover {
+    & > .move-operation-content {
+      display: block;
+      .move-arrow {
+        &:hover {
+          color: #4a82f7;
+        }
+      }
+    }
+  }
+  .draggable:first-child {
+    & > .assemble-list-item > .move-operation-content .move-arrow-up {
+      cursor: not-allowed;
+    }
+    &:hover {
+      & > .move-operation-content {
+        .move-arrow-up {
+          color: #ccc;
+          &:hover {
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+  .draggable:last-child {
+    & > .assemble-list-item > .move-operation-content .move-arrow-down {
+      cursor: not-allowed;
+    }
+    &:hover {
+      & > .move-operation-content {
+        .move-arrow-down {
+          color: #ccc;
+          &:hover {
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+name: myblog2.0
+on:
+  push: 
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # 下载源码
+    - name: Checkout
+      uses: actions/checkout@master
+    # 打包构建
+    - name: Build
+      uses: actions/setup-node@master
+    - run: npm install
+    - run: npm run build
+
+    # 部署到服务器
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.ALI_SSH_KEY }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: dist/ # 这是要复制到阿里云静态服务器的文件夹名称
+          REMOTE_HOST: ${{ secrets.HOST }} # 你的阿里云公网地址
+          REMOTE_USER: ${{ secrets.USERNAME }} # 阿里云登录后默认为 root 用户，并且所在文件夹为 root
+          TARGET: /home/www/Aimee/DEMO/h5-federation # 打包后的 dist 文件夹将放在 /root/node-server
