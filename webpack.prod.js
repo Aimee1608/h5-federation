@@ -22,7 +22,16 @@ output: {
     rules: [
       {
         test: /\.(css|less)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 
+        {
+          loader: 'less-loader', // compiles Less to CSS
+          options: {
+            modifyVars: {
+              '@primary-color': '#2FACA9'
+            },
+            javascriptEnabled: true
+          }
+        }]
       },
     ],
   },
